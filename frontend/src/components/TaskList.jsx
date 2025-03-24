@@ -1,6 +1,5 @@
 import React , { useState , useEffect } from 'react';
 import { get , getQuotes, post , put , remove} from '../utils/api';
-import axios from 'axios';
 
 const TaskList = () => {
     const [tasks , setTasks] =useState([]);
@@ -112,29 +111,39 @@ const TaskList = () => {
             <h1 className="text-2x1 font-bold mb-4 text-center">Task List</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {tasks.map((task)=>(
-                    <div key={task.id} className='bg-white p-4 rounded-lg shadow-md'>
-                        <h2 className='text-xl font-bold'>{task.name}</h2>
-                        <p className='text-grey-600'>{task.description}</p>
-                        <p className='text-sm text-gray-500'>Start:{task.start_date}</p>
-                        <p className='text-sm text-red-500'>Due: {task.due_date}</p>
-                        <div className="flex justify-between mt-2">
-                            <button 
-                                onClick={() => handleEdit(task)} 
-                                className="bg-yellow-500 text-white px-4 py-2 rounded-md"
-                            >
-                                Edit
-                            </button>
-                            <button
-                            onClick={() => handleDelete(task.id)}
-                            className="bg-red-500 text-white px-4 py-2 rounded-md">
-                                Delete
-                            </button>
-                        
+                    <div key={task.id} className=' flex max-w-sm items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10'>
+                        <div>
+                            <h2 className='text-xl font-bold text-black dark:text-white'>{task.name}</h2>
+                            <p className='text-white font-medium '>{task.description}</p>
+                            <p className='text-sm font-serif text-gray-500'>Start:{task.start_date}</p>
+                            <p className='text-sm font-serif text-red-500'>Due: {task.due_date}</p>
+                            <div className="flex justify-between mt-2 gap-5">
+                                <button 
+                                    onClick={() => handleEdit(task)} 
+                                    className="btn-primary bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-700">
+                                
+                                    Edit
+                                </button>
+                                <button
+                                onClick={() => handleDelete(task.id)}
+                                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700">
+                                    Delete
+                                </button>
+                            
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
-            <button onClick={()=>setPopUp(true)} className='bg-blue-500 text-white px-4 pt-2 rounded-md'>Add Task</button>
+            <div className="flex justify-center my-10">
+                <button 
+                    onClick={() => setPopUp(true)} 
+                    className="bg-blue-500 text-white px-6 py-3 rounded-xl shadow-lg hover:bg-blue-700 transition"
+                >
+                    + Add Task
+                </button>
+            </div>
+
             {/*POPUP MODEL*/}
             {popUp && (
                 <div className='fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center'>
@@ -175,7 +184,7 @@ const TaskList = () => {
                             value={newTask.due_date}
                             className='border border-gray-400 p-2 rounded-md w-full my-2'
                             required/>
-                            <div className='flex justify-between'>
+                            <div className='flex justify-center align-middle'>
                                 <button type='submit' className='bg-blue-500 text-white px-4 py-2 rounded-md'>Add Task</button>
                                 <button onClick={()=>setPopUp(false)} className='bg-red-500 text-white px-4 py-2 rounded-md'>Cancel</button>
                             </div>
