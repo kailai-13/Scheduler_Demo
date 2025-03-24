@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 from models import db ,Tasks
+import json
+
 
 app = Flask(__name__)
 CORS(app)
@@ -69,9 +71,23 @@ def delete_task(id):
         db.session.rollback()
         db.session.commit()
         return jsonify({"message":str(e)}),500
-    
 
 
-if __name__=="__main__":
-    app.run(port=4269, debug=True)
 
+
+
+@app.route("/quote", methods=["GET"])
+def get_quote():
+    try:
+        with open("current_quote.json", "r") as file:
+            quote_data = json.load(file)
+        return jsonify(quote_data)
+    except FileNotFoundError:
+        return jsonify({"quote": "No quote available", "author": "Unknown"})
+
+
+from scheduler import create_scheduler
+scheduler = create_scheduler()
+
+if __name__ == "__main__":
+    app.run(debug=True)
