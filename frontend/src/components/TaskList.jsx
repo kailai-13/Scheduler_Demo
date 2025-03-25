@@ -184,7 +184,7 @@ const TaskList = () => {
                             value={newTask.due_date}
                             className='border border-gray-400 p-2 rounded-md w-full my-2'
                             required/>
-                            <div className='flex justify-center align-middle'>
+                            <div className='flex justify-center align-middle gap-10'>
                                 <button type='submit' className='bg-blue-500 text-white px-4 py-2 rounded-md'>Add Task</button>
                                 <button onClick={()=>setPopUp(false)} className='bg-red-500 text-white px-4 py-2 rounded-md'>Cancel</button>
                             </div>

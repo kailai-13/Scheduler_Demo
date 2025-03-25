@@ -72,10 +72,6 @@ def delete_task(id):
         db.session.commit()
         return jsonify({"message":str(e)}),500
 
-
-
-
-
 @app.route("/quote", methods=["GET"])
 def get_quote():
     try:
